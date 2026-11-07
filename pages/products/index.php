@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . "/../../config/database.php";
 // === TAHAP 1 - CRUD ===
 // TODO 1 : session_start();   (TAHAP 3: ganti dengan require middleware + requireAuth())
 // TODO 2 : require_once repositories/category-repository.php

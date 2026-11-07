@@ -41,20 +41,49 @@ $pageSubtitle = "Lengkapi data produk baru";
             <!-- TODO: tampilkan $errors['name'] di <p class="error-text"> jika ada -->
           </div>
           <div class="form-group">
-                <label for="category">produk</label>
+                <label for="category">Produk</label>
                 <select id="category" name="category">
-                  <?php foreach ($categories as $category): ?>
-                    
-                  <?php endforeach; ?>
+                    <option value="Food">
+                      <p>Food</p>
+                    </option>
+                    <option value="Drink">
+                      <p>Drink</p>
+                    </option>
+                    <option value="Stationery">
+                      <p>Stationery</p>
+                    </option>
+                    <option value="Uniform">
+                      <p>Uniform</p>
+                    </option>
                 </select>
-                <?php if (isset($errors['category_id'])): ?>
-                  <p style="font-size: 12px; color: red; margin-top: 4px;">
-                      <?= $errors['category_id'] ?>
-                  </p>
-                <?php endif; ?>
+            </div>
+            <div class="form-radio">
+              <label >Unit</label>
+
+              <div>
+                <label for="Pcs">Pcs</label>
+                <input type="radio" id="unit" name="unit" value="Pcs">
               </div>
+              <div>
+                <label for="Pack">Pack</label>
+                <input type="radio" id="unit" name="unit" value="Pack">
+              </div>
+              <div>
+                <label for="Bottle">Bottle</label>
+                <input type="radio" id="unit" name="unit" value="Bottle">
+              </div>
+
+          </div>
           <div class="form-group">
-            <label for="description">Deskripsi (opsional)</label>
+            <label for="price">Harga</label>
+            <input type="number" id="price" name="price" value="stock">
+          </div>
+          <div class="form-group">
+            <label for="stock">Stok</label>
+            <input type="number" id="stock" name="stock" value="stock">
+          </div>
+          <div class="form-group">
+            <label for="description">Deskripsi</label>
             <!-- TODO 4: isi textarea dengan $old['description'] -->
             <textarea id="description" name="description" rows="3"></textarea>
             <!-- TODO: tampilkan $errors['description'] di <p class="error-text"> jika ada -->

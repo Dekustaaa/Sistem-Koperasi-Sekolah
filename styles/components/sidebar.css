@@ -1,6 +1,6 @@
 /* COMPONENT: SIDEBAR */
 .layout { display: flex; min-height: 100vh; }
-.sidebar { width: 220px; background: var(--green-dark); color: #fff; padding: 24px 16px; display: flex; flex-direction: column; gap: 24px; }
+.sidebar { width: 220px; background: var(--blue-dark); color: #fff; padding: 24px 16px; display: flex; flex-direction: column; gap: 24px; }
 .brand { font-size: 20px; font-weight: bold; }
 .sidebar nav { display: flex; flex-direction: column; gap: 4px; }
 .sidebar nav a { padding: 10px 12px; border-radius: 6px; }
