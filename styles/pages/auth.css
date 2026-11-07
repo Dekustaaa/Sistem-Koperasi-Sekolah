@@ -1,0 +1,5 @@
+/* PAGE: AUTH */
+.auth-card { width: 380px; }
+.auth-card h1 { font-size: 22px; margin-bottom: 20px; }
+.auth-link { margin-top: 16px; font-size: 14px; text-align: center; }
+.auth-link a { color: var(--green); font-weight: bold; }

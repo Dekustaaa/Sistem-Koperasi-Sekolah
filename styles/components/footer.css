@@ -1,0 +1,2 @@
+/* COMPONENT: FOOTER LANDING */
+.site-footer { display: flex; justify-content: space-between; padding: 20px 48px; background: var(--green-dark); color: #fff; font-size: 13px; }

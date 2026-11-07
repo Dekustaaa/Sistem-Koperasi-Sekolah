@@ -1,0 +1,6 @@
+/* COMPONENT: TOPBAR */
+.main { flex: 1; }
+.topbar { background: #fff; padding: 16px 32px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
+.topbar h1 { font-size: 22px; }
+.topbar p { font-size: 13px; color: var(--muted); }
+.content { padding: 24px 32px; }
