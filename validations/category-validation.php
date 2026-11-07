@@ -6,13 +6,10 @@ function getCategoryRequest($request)
 {
   // TODO: kembalikan array id, name, description
   //       id memakai ?? '' ; semuanya trim(htmlspecialchars(...))
-  return [
-    'name' => trim($request['name']),
-    'description' => trim($request['description'])
-  ];
+  return [];
 }
 
-// $ignoreId dipakai saat EDIT supaya nama milik kategori itu sendiri tidak dianggap duplikat
+// $ignoreId dipakai saat EDIT supaya nama milik produk itu sendiri tidak dianggap duplikat
 function validateCategory($request, $ignoreId = 0)
 {
   $errors = [];

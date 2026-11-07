@@ -1,6 +1,6 @@
-# BukuKita - Kerangka Awal (Starter)
+# Sistem Koperasi Sekolah - Kerangka Awal (Starter)
 
-Project latihan LKS: **CRUD Kategori**, Register, Login, Logout, dan Otorisasi
+Project latihan LKS: **CRUD produk**, Register, Login, Logout, dan Otorisasi
 (middleware) dengan PHP Native + MySQL. Latihan akhir: **CRUD Buku** (dibuat sendiri).
 
 > Folder, tampilan (HTML + CSS), komponen, dan struktur sudah disediakan.
@@ -8,15 +8,15 @@ Project latihan LKS: **CRUD Kategori**, Register, Login, Logout, dan Otorisasi
 
 ## Cara Menjalankan
 
-1. Salin folder `bukukita` ke `C:\laragon\www\`
+1. Salin folder `Sistem Koperasi Sekolah` ke `C:\laragon\www\`
 2. Buka Laragon, klik **Start All**, lalu klik **Terminal**
 3. **Buat database sendiri** sesuai materi (database `smk_immanuel_library`
-   dan tabel `users`, `products`, `books`)
+   dan tabel `users`, `categories`, `books`)
 4. Buat file koneksi `config/database.php` (ikuti TODO di dalam file)
 5. Di terminal, masuk ke folder project lalu jalankan server PHP:
 
    ```
-   cd C:\laragon\www\bukukita
+   cd C:\laragon\www\Sistem Koperasi Sekolah
    php -S localhost:8000
    ```
 6. Buka `http://localhost:8000` (port boleh diganti, misalnya 8080)
@@ -28,11 +28,11 @@ Project latihan LKS: **CRUD Kategori**, Register, Login, Logout, dan Otorisasi
 
 **Persiapan:** database dan `config/database.php`
 
-**Tahap 1 - CRUD Kategori** (tanpa login; baris pertama setiap file `session_start();`)
+**Tahap 1 - CRUD produk** (tanpa login; baris pertama setiap file `session_start();`)
 1. `repositories/category-repository.php`
 2. `validations/category-validation.php`
-3. `pages/products/*` (index, create, edit)
-4. `actions/products/store.php`, `update.php`, `destroy.php`
+3. `pages/categories/*` (index, create, edit)
+4. `actions/categories/store.php`, `update.php`, `destroy.php`
 
 **Tahap 2 - Autentikasi**
 1. `repositories/user-repository.php`, `validations/auth-validation.php`
@@ -50,11 +50,11 @@ Project latihan LKS: **CRUD Kategori**, Register, Login, Logout, dan Otorisasi
 ## Struktur Folder (mengikuti project referensi)
 
 ```
-bukukita/
+Sistem Koperasi Sekolah/
 ├── index.php            -> landing page                       [SIAP]
 ├── actions/
 │   ├── auth/            register, login, logout               [TODO]
-│   ├── products/      store, update, destroy                [TODO]
+│   ├── categories/      store, update, destroy                [TODO]
 │   └── books/           (latihan: dibuat sendiri)
 ├── components/
 │   ├── admin/           sidebar, topbar                       [SIAP]
@@ -63,7 +63,7 @@ bukukita/
 ├── middleware/auth.php  penjaga halaman                       [TODO tahap 2-3]
 ├── pages/
 │   ├── auth/            login, register                       [TODO]
-│   ├── products/      index, create, edit                   [TODO]
+│   ├── categories/      index, create, edit                   [TODO]
 │   ├── books/           (latihan: dibuat sendiri)
 │   └── errors/          403                                   [SIAP]
 ├── repositories/        user, category                        [TODO]

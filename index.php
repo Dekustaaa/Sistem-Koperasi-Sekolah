@@ -16,7 +16,7 @@ $title = "Beranda - Sistem Koperasi Sekolah";
 
   <section class="hero">
     <h1>Kelola Sistem Koperasi Sekolah Lebih Rapi</h1>
-    <p>SKS membantu mencatat kategori dan koleksi Koperasi sekolah secara sederhana.</p>
+    <p>SKS membantu mencatat produk dan koleksi Koperasi sekolah secara sederhana.</p>
     <div class="hero-cta">
       <a href="pages/auth/login.php" class="btn btn-primary">Masuk ke Akun</a>
       <a href="pages/products/index.php" class="btn btn-outline">Lihat Prodcucts</a>
@@ -27,7 +27,7 @@ $title = "Beranda - Sistem Koperasi Sekolah";
   <section class="features">
     <div class="feature-card">
       <h3>Manajemen Produk</h3>
-      <p>Admin dapat menambah, mengubah, dan menghapus kategori.</p>
+      <p>Admin dapat menambah, mengubah, dan menghapus produk.</p>
     </div>
     <div class="feature-card">
       <h3>Manajemen Suppliers</h3>

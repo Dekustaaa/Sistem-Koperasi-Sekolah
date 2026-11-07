@@ -12,7 +12,7 @@
 //      simpan ke $_SESSION['old'], header('Location: ../../pages/auth/login.php'); exit;
 //   4. session_regenerate_id(true);
 //   5. $_SESSION['user'] = [id, name, email, role];   (JANGAN simpan password)
-//   6. header('Location: ../../pages/products/index.php'); exit;
+//   6. header('Location: ../../pages/categories/index.php'); exit;
 // }
 //
 // === TAHAP 3 - OTORISASI (terakhir) ===

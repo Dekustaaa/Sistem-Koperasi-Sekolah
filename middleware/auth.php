@@ -9,7 +9,7 @@
 // ---------- TAHAP 2 ----------
 // TODO 1: buat 3 konstanta URL
 //   LOGIN_URL     = '/pages/auth/login.php'
-//   HOME_URL      = '/pages/products/index.php'
+//   HOME_URL      = '/pages/categories/index.php'
 //   FORBIDDEN_URL = '/pages/errors/403.php'
 
 function startSession()

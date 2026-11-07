@@ -13,13 +13,13 @@ $old = [];
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - BukuKita</title>
+  <title>Login - Sistem Koperasi Sekolah</title>
   <link rel="stylesheet" href="../../styles/auth/login.css">
 </head>
 
 <body class="center-page">
   <div class="card auth-card">
-    <h1>Masuk ke BukuKita</h1>
+    <h1>Masuk ke Sistem Koperasi Sekolah</h1>
 
     <!-- TODO 3: jika $success ada -> <div class="alert alert-success"> -->
 

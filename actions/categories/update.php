@@ -1,5 +1,5 @@
 <?php
-// ACTION UBAH KATEGORI (UPDATE)
+// ACTION UBAH produk (UPDATE)
 //
 // === TAHAP 1 - CRUD ===
 // Awali file dengan: session_start();  lalu require config/database.php
@@ -11,9 +11,9 @@
 //     2. $request = getCategoryRequest($_POST);
 //        $errors = validateCategory($request, $request['id']);   // abaikan nama sendiri
 //     3. Jika ada error: simpan errors & old ke session,
-//        header('Location: ../../pages/products/edit.php?id=' . urlencode($request['id'])); exit;
-//     4. update products set name = :name, description = :description where id = :id
-//     5. $pdo->commit(); header('Location: ../../pages/products/index.php'); exit;
+//        header('Location: ../../pages/categories/edit.php?id=' . urlencode($request['id'])); exit;
+//     4. update categories set name = :name, description = :description where id = :id
+//     5. $pdo->commit(); header('Location: ../../pages/categories/index.php'); exit;
 //   } catch (PDOException $e) { $pdo->rollBack(); throw $e; }
 // }
 //

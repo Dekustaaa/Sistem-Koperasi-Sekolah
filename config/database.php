@@ -1,7 +1,7 @@
 <?php
 
   $host     = "localhost";
-  $dbname   = "smk_immanuel_library";
+  $dbname   = "db_cooperative";
   $username = "root";
   $password = "";
 

@@ -2,17 +2,17 @@
 // === TAHAP 1 - CRUD ===
 // TODO 1 : session_start();   (TAHAP 3: ganti dengan require middleware + requireAuth())
 // TODO 2 : require_once repositories/category-repository.php
-// TODO 3 : $products = getproducts();
+// TODO 3 : $categories = getCategories();
 // TODO 4 : ambil $_SESSION['errors'] lalu unset()  (untuk pesan gagal hapus)
 // === TAHAP 3 - OTORISASI (terakhir) ===
 // TODO 5 : $isAdmin = hasRole(['admin']);
 
-$products = [];
+$categories = [];
 $isAdmin = true;
 $errors = [];
 
-$pageTitle = "Manajemen Kategori";
-$pageSubtitle = "Kelola data kategori buku";
+$pageTitle = "Manajemen Produk";
+$pageSubtitle = "Kelola data produk";
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -20,8 +20,8 @@ $pageSubtitle = "Kelola data kategori buku";
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kategori - BukuKita</title>
-  <link rel="stylesheet" href="../../styles/products/index.css">
+  <title>Produk - Sistem Koperasi Sekolah</title>
+  <link rel="stylesheet" href="../../styles/categories/index.css">
 </head>
 
 <body>
@@ -36,7 +36,7 @@ $pageSubtitle = "Kelola data kategori buku";
 
         <!-- TODO 7 (TAHAP 3): tombol Tambah hanya untuk admin (if $isAdmin) -->
         <div class="toolbar">
-          <a href="create.php" class="btn btn-primary">+ Tambah Kategori</a>
+          <a href="create.php" class="btn btn-primary">+ Tambah produk</a>
         </div>
 
         <div class="card">
@@ -51,15 +51,15 @@ $pageSubtitle = "Kelola data kategori buku";
             </thead>
             <tbody>
               <!--
-                TODO 9: foreach ($products as $category) -> satu <tr> per kategori:
+                TODO 9: foreach ($categories as $category) -> satu <tr> per produk:
                   <td> nama, <td> deskripsi
                   <td class="actions"> (TAHAP 3: hanya admin):
                      - link Edit  -> edit.php?id=...
-                     - link Hapus -> ../../actions/products/destroy.php?id=...
+                     - link Hapus -> ../../actions/categories/destroy.php?id=...
                        dengan onclick="return confirm('Yakin ingin menghapus?')"
               -->
 
-              <!-- TODO 10: jika $products kosong -> baris "Belum ada kategori" (colspan="3") -->
+              <!-- TODO 10: jika $categories kosong -> baris "Belum ada produk" (colspan="3") -->
             </tbody>
           </table>
         </div>

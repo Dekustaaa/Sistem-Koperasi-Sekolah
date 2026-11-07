@@ -11,8 +11,8 @@ $errors = [];
 $old = [];
 $data = [];
 
-$pageTitle = "Edit Kategori";
-$pageSubtitle = "Perbarui data kategori";
+$pageTitle = "Edit produk";
+$pageSubtitle = "Perbarui data produk";
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -20,8 +20,8 @@ $pageSubtitle = "Perbarui data kategori";
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Edit Kategori - BukuKita</title>
-  <link rel="stylesheet" href="../../styles/products/edit.css">
+  <title>Edit produk - Sistem Koperasi Sekolah</title>
+  <link rel="stylesheet" href="../../styles/categories/edit.css">
 </head>
 
 <body>
@@ -32,12 +32,12 @@ $pageSubtitle = "Perbarui data kategori";
       <?php require_once __DIR__ . "/../../components/admin/topbar.php" ?>
 
       <div class="content">
-        <form method="POST" action="../../actions/products/update.php" class="card">
+        <form method="POST" action="../../actions/categories/update.php" class="card">
           <!-- TODO 6: value = $category['id'] -->
           <input type="hidden" name="id" value="">
 
           <div class="form-group">
-            <label for="name">Nama Kategori</label>
+            <label for="name">Nama produk</label>
             <!-- TODO 7: value = $data['name'] -->
             <input type="text" id="name" name="name" value="">
             <!-- TODO: tampilkan $errors['name'] di <p class="error-text"> jika ada -->
