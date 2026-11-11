@@ -1,19 +1,17 @@
 <?php
-require_once __DIR__ . "/../../config/database.php";
-// === TAHAP 1 - CRUD ===
-// TODO 1 : session_start();   (TAHAP 3: ganti dengan require middleware + requireAuth())
-// TODO 2 : require_once repositories/category-repository.php
-// TODO 3 : $categories = getCategories();
-// TODO 4 : ambil $_SESSION['errors'] lalu unset()  (untuk pesan gagal hapus)
-// === TAHAP 3 - OTORISASI (terakhir) ===
-// TODO 5 : $isAdmin = hasRole(['admin']);
+require_once __DIR__ . "/../../config/auth.php";
+requireLogin();
+require_once __DIR__ . "/../../repositories/product-repository.php";
 
-$categories = [];
-$isAdmin = true;
-$errors = [];
+$flash   = pullFlash();
+$success = $flash['success'];
+$errors  = $flash['errors'];
+$isAdmin = authIsAdmin();
 
-$pageTitle = "Manajemen Produk";
-$pageSubtitle = "Kelola data produk";
+$products = getProducts();
+
+$pageTitle    = "Manajemen Produk";
+$pageSubtitle = "Kelola data produk koperasi sekolah";
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -33,34 +31,62 @@ $pageSubtitle = "Kelola data produk";
       <?php require_once __DIR__ . "/../../components/admin/topbar.php" ?>
 
       <div class="content">
-        <!-- TODO 6: jika $errors['delete'] ada -> <div class="alert alert-error"> -->
+        <?php if ($success): ?>
+          <div class="alert alert-success"><?= htmlspecialchars($success) ?></div>
+        <?php endif; ?>
 
-        <!-- TODO 7 (TAHAP 3): tombol Tambah hanya untuk admin (if $isAdmin) -->
-        <div class="toolbar">
-          <a href="create.php" class="btn btn-primary">+ Tambah produk</a>
-        </div>
+        <?php if (!empty($errors['delete'])): ?>
+          <div class="alert alert-error"><?= htmlspecialchars($errors['delete']) ?></div>
+        <?php endif; ?>
+
+        <?php if ($isAdmin): ?>
+          <div class="toolbar">
+            <a href="create.php" class="btn btn-primary">+ Tambah Produk</a>
+          </div>
+        <?php endif; ?>
 
         <div class="card">
           <table>
             <thead>
               <tr>
+                <th>Kode</th>
                 <th>Nama</th>
+                <th>Kategori</th>
+                <th>Unit</th>
+                <th>Harga</th>
+                <th>Stok</th>
+                <th>Tanggal Masuk</th>
                 <th>Deskripsi</th>
-                <!-- TODO 8 (TAHAP 3): kolom Aksi hanya untuk admin -->
-                <th>Aksi</th>
+                <?php if ($isAdmin): ?><th>Aksi</th><?php endif; ?>
               </tr>
             </thead>
             <tbody>
-              <!--
-                TODO 9: foreach ($categories as $category) -> satu <tr> per produk:
-                  <td> nama, <td> deskripsi
-                  <td class="actions"> (TAHAP 3: hanya admin):
-                     - link Edit  -> edit.php?id=...
-                     - link Hapus -> ../../actions/categories/destroy.php?id=...
-                       dengan onclick="return confirm('Yakin ingin menghapus?')"
-              -->
-
-              <!-- TODO 10: jika $categories kosong -> baris "Belum ada produk" (colspan="3") -->
+              <?php if (!$products): ?>
+                <tr>
+                  <td colspan="<?= $isAdmin ? 9 : 8 ?>" class="empty">Belum ada data produk.</td>
+                </tr>
+              <?php else: ?>
+                <?php foreach ($products as $product): ?>
+                  <tr>
+                    <td><?= htmlspecialchars($product['product_code']) ?></td>
+                    <td><?= htmlspecialchars($product['product_name']) ?></td>
+                    <td><?= htmlspecialchars($product['category']) ?></td>
+                    <td><?= htmlspecialchars($product['unit']) ?></td>
+                    <td>Rp <?= number_format((float) $product['price'], 0, ',', '.') ?></td>
+                    <td><?= (int) $product['stock'] ?></td>
+                    <td><?= htmlspecialchars($product['entry_date']) ?></td>
+                    <td><?= htmlspecialchars($product['description'] ?? '-') ?></td>
+                    <?php if ($isAdmin): ?>
+                      <td class="actions">
+                        <a href="edit.php?id=<?= (int) $product['product_id'] ?>" class="btn btn-outline btn-sm">Edit</a>
+                        <a href="../../actions/products/destroy.php?id=<?= (int) $product['product_id'] ?>"
+                          class="btn btn-danger btn-sm"
+                          onclick="return confirm('Yakin ingin menghapus produk ini?')">Hapus</a>
+                      </td>
+                    <?php endif; ?>
+                  </tr>
+                <?php endforeach; ?>
+              <?php endif; ?>
             </tbody>
           </table>
         </div>

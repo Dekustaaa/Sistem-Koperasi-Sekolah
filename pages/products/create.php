@@ -1,12 +1,13 @@
 <?php
-// === TAHAP 1 - CRUD ===
-// TODO 1 : session_start();   (TAHAP 3: ganti dengan require middleware + requireRole(['admin']))
-// TODO 2 : ambil $_SESSION['errors'] dan ['old'] lalu unset()
+require_once __DIR__ . "/../../config/auth.php";
+requireAdmin();
+require_once __DIR__ . "/../../validations/product-validation.php";
 
-$errors = [];
-$old = [];
+$flash  = pullFlash();
+$errors = $flash['errors'];
+$old    = $flash['old'];
 
-$pageTitle = "Tambah produk";
+$pageTitle    = "Tambah Produk";
 $pageSubtitle = "Lengkapi data produk baru";
 ?>
 <!DOCTYPE html>
@@ -15,7 +16,7 @@ $pageSubtitle = "Lengkapi data produk baru";
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tambah produk - Sistem Koperasi Sekolah</title>
+  <title>Tambah Produk - Sistem Koperasi Sekolah</title>
   <link rel="stylesheet" href="../../styles/categories/create.css">
 </head>
 
@@ -27,66 +28,90 @@ $pageSubtitle = "Lengkapi data produk baru";
       <?php require_once __DIR__ . "/../../components/admin/topbar.php" ?>
 
       <div class="content">
-        <form method="POST" action="../../actions/categories/store.php" class="card">
+        <form method="POST" action="../../actions/products/store.php" class="card">
           <div class="form-group">
-            <label for="code">Kode Produk</label>
-            <!-- TODO 3: value = $old['name'] -->
-            <input type="text" id="product_code" name="code" value="">
-            <!-- TODO: tampilkan $errors['name'] di <p class="error-text"> jika ada -->
+            <label for="product_code">Kode Produk</label>
+            <input type="text" id="product_code" name="product_code" maxlength="10"
+              value="<?= htmlspecialchars($old['product_code'] ?? '') ?>" placeholder="Contoh: PRD001">
+            <?php if (!empty($errors['product_code'])): ?>
+              <p class="error-text"><?= htmlspecialchars($errors['product_code']) ?></p>
+            <?php endif; ?>
           </div>
+
           <div class="form-group">
-            <label for="name">Nama Produk</label>
-            <!-- TODO 3: value = $old['name'] -->
-            <input type="text" id="product_name" name="name" value="">
-            <!-- TODO: tampilkan $errors['name'] di <p class="error-text"> jika ada -->
+            <label for="product_name">Nama Produk</label>
+            <input type="text" id="product_name" name="product_name" maxlength="100"
+              value="<?= htmlspecialchars($old['product_name'] ?? '') ?>" placeholder="Nama produk">
+            <?php if (!empty($errors['product_name'])): ?>
+              <p class="error-text"><?= htmlspecialchars($errors['product_name']) ?></p>
+            <?php endif; ?>
           </div>
+
           <div class="form-group">
-                <label for="category">Produk</label>
-                <select id="category" name="category">
-                    <option value="Food">
-                      <p>Food</p>
-                    </option>
-                    <option value="Drink">
-                      <p>Drink</p>
-                    </option>
-                    <option value="Stationery">
-                      <p>Stationery</p>
-                    </option>
-                    <option value="Uniform">
-                      <p>Uniform</p>
-                    </option>
-                </select>
-            </div>
+            <label for="category">Kategori</label>
+            <select id="category" name="category">
+              <option value="">-- Pilih Kategori --</option>
+              <?php foreach (productCategories() as $category): ?>
+                <option value="<?= htmlspecialchars($category) ?>"
+                  <?= ($old['category'] ?? '') === $category ? 'selected' : '' ?>>
+                  <?= htmlspecialchars($category) ?>
+                </option>
+              <?php endforeach; ?>
+            </select>
+            <?php if (!empty($errors['category'])): ?>
+              <p class="error-text"><?= htmlspecialchars($errors['category']) ?></p>
+            <?php endif; ?>
+          </div>
+
+          <div class="form-group">
+            <label>Unit</label>
             <div class="form-radio">
-              <label >Unit</label>
-
-              <div>
-                <label for="Pcs">Pcs</label>
-                <input type="radio" id="unit" name="unit" value="Pcs">
-              </div>
-              <div>
-                <label for="Pack">Pack</label>
-                <input type="radio" id="unit" name="unit" value="Pack">
-              </div>
-              <div>
-                <label for="Bottle">Bottle</label>
-                <input type="radio" id="unit" name="unit" value="Bottle">
-              </div>
-
+              <?php foreach (productUnits() as $unit): ?>
+                <label>
+                  <input type="radio" name="unit" value="<?= htmlspecialchars($unit) ?>"
+                    <?= ($old['unit'] ?? '') === $unit ? 'checked' : '' ?>>
+                  <?= htmlspecialchars($unit) ?>
+                </label>
+              <?php endforeach; ?>
+            </div>
+            <?php if (!empty($errors['unit'])): ?>
+              <p class="error-text"><?= htmlspecialchars($errors['unit']) ?></p>
+            <?php endif; ?>
           </div>
+
           <div class="form-group">
-            <label for="price">Harga</label>
-            <input type="number" id="price" name="price" value="stock">
+            <label for="price">Harga (Rp)</label>
+            <input type="number" id="price" name="price" min="0" step="0.01"
+              value="<?= htmlspecialchars($old['price'] ?? '') ?>">
+            <?php if (!empty($errors['price'])): ?>
+              <p class="error-text"><?= htmlspecialchars($errors['price']) ?></p>
+            <?php endif; ?>
           </div>
+
           <div class="form-group">
             <label for="stock">Stok</label>
-            <input type="number" id="stock" name="stock" value="stock">
+            <input type="number" id="stock" name="stock" min="0" step="1"
+              value="<?= htmlspecialchars($old['stock'] ?? '') ?>">
+            <?php if (!empty($errors['stock'])): ?>
+              <p class="error-text"><?= htmlspecialchars($errors['stock']) ?></p>
+            <?php endif; ?>
           </div>
+
           <div class="form-group">
-            <label for="description">Deskripsi</label>
-            <!-- TODO 4: isi textarea dengan $old['description'] -->
-            <textarea id="description" name="description" rows="3"></textarea>
-            <!-- TODO: tampilkan $errors['description'] di <p class="error-text"> jika ada -->
+            <label for="entry_date">Tanggal Masuk</label>
+            <input type="date" id="entry_date" name="entry_date"
+              value="<?= htmlspecialchars($old['entry_date'] ?? '') ?>">
+            <?php if (!empty($errors['entry_date'])): ?>
+              <p class="error-text"><?= htmlspecialchars($errors['entry_date']) ?></p>
+            <?php endif; ?>
+          </div>
+
+          <div class="form-group">
+            <label for="description">Deskripsi (opsional)</label>
+            <textarea id="description" name="description" rows="3"><?= htmlspecialchars($old['description'] ?? '') ?></textarea>
+            <?php if (!empty($errors['description'])): ?>
+              <p class="error-text"><?= htmlspecialchars($errors['description']) ?></p>
+            <?php endif; ?>
           </div>
 
           <div class="form-actions">
