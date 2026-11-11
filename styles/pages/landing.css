@@ -1,4 +1,4 @@
-/* PAGE: LANDING */
+
 .navbar { display: flex; justify-content: space-between; align-items: center; padding: 16px 48px; background: #fff; border-bottom: 1px solid var(--line); }
 .navbar .brand { color: var(--blue-dark); }
 .nav-actions { display: flex; gap: 8px; }
