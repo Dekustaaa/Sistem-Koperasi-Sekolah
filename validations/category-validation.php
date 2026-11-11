@@ -4,18 +4,22 @@ require_once
 
 function getCategoryRequest($request)
 {
-  // TODO: kembalikan array id, name, description
-  //       id memakai ?? '' ; semuanya trim(htmlspecialchars(...))
-  return [];
+
+  return [
+    'product_code' => trim(htmlspecialchars($request['code'] ?? '')),
+    'product_name' => trim(htmlspecialchars($request['name'] ?? '')),
+    'category' => trim(htmlspecialchars($request['category'] ?? '')),
+    'unit' => trim(htmlspecialchars($request['unit'] ?? '')),
+    'price' => trim(htmlspecialchars($request['price'] ?? '')),
+    'stock' => trim(htmlspecialchars($request['stock'] ?? '')),
+    'entry_date' => trim(htmlspecialchars($request['entry_date'] ?? '')),
+    'description' => trim(htmlspecialchars($request['description'] ?? '')),
+  ];
 }
 
-// $ignoreId dipakai saat EDIT supaya nama milik produk itu sendiri tidak dianggap duplikat
 function validateCategory($request, $ignoreId = 0)
 {
   $errors = [];
-
-  // TODO name        : wajib, maksimal 50 karakter, belum dipakai (isCategoryNameTaken + $ignoreId)
-  // TODO description : opsional, maksimal 200 karakter
 
   return $errors;
 }

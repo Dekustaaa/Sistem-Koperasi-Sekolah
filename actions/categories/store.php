@@ -1,22 +1,32 @@
 <?php
-// ACTION TAMBAH produk (CREATE)
-//
-// === TAHAP 1 - CRUD ===
-// Awali file dengan: session_start();  lalu require config/database.php
-// dan validations/category-validation.php
-//
-// if (isset($_POST['store']) && $_SERVER['REQUEST_METHOD'] === "POST") {
-//   try {
-//     1. $pdo->beginTransaction();
-//     2. $request = getCategoryRequest($_POST); $errors = validateCategory($request);
-//     3. Jika ada error: $_SESSION['errors'] = $errors; $_SESSION['old'] = $request;
-//        header('Location: ../../pages/categories/create.php'); exit;
-//     4. insert into categories (name, description) values (:name, :description)
-//     5. $pdo->commit(); header('Location: ../../pages/categories/index.php'); exit;
-//   } catch (PDOException $e) { $pdo->rollBack(); throw $e; }
-// }
-//
-// === TAHAP 3 - OTORISASI (terakhir) ===
-// Ganti session_start(); dengan:
-//   require_once __DIR__ . "/../../middleware/auth.php";
-//   requireRole(['admin']);
+require_once __DIR__ . "/../../config/database.php";
+require_once __DIR__ . "/../../validations/category-validation.php";
+
+if(isset($_POST['store']) && $_SERVER['REQUEST_METHOD'] === "POST") {
+    try {
+
+        $request = getCategoryRequest($_POST);
+        $query = "INSERT INTO products (product_code, product_name, category, unit, price, stock, entry_date, description) 
+                    values(:product_code,:product_name, :category, :unit, :price, :stock, :entry_date, :description)";
+        $stmt = $pdo->query("SHOW COLUMNS FROM products LIKE 'category'");
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        preg_match("/^enum\((.*)\)$/", $row['Type'], $matches);
+        $categories = str_getcsv($matches[1], ",", "'");
+        $stmt = $pdo -> prepare($query);
+        $stmt->execute([
+                        "product_code" => $request['product_code'],
+                        "product_name" => $request['product_name'],
+                        "category"     => $request['category'],
+                        "unit"         => $request['unit'],
+                        "price"        => $request['price'],
+                        "stock"        => $request['stock'],
+                        "entry_date"   => $request['entry_date'],
+                        "description"  => $request['description']
+                    ]);
+        header('location: ../../pages/categories/index.php');
+        exit;
+    } catch(PDOException $e) {
+        throw $e;
+    }
+
+}
