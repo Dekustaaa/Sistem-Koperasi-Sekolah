@@ -1,15 +1,14 @@
 <?php
-require_once __DIR__ . "/../../middleware/auth.php";
-$user = getAuthUser();
+$user = $_SESSION['user'] ?? null;
 ?>
 <header class="topbar">
   <div>
-    <h1><?= $pageTitle ?></h1>
-    <p><?= $pageSubtitle ?></p>
+    <h1><?= htmlspecialchars($pageTitle ?? '') ?></h1>
+    <p><?= htmlspecialchars($pageSubtitle ?? '') ?></p>
   </div>
 
   <div class="topbar-user">
-    <?= $user['name'] ?? 'Tamu' ?>
-    <span class="badge"><?= $user['role'] ?? '-' ?></span>
+    <?= htmlspecialchars($user['name'] ?? 'Tamu') ?>
+    <span class="badge"><?= htmlspecialchars($user['role'] ?? '-') ?></span>
   </div>
 </header>
