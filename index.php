@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . "/config/auth.php";
+$user  = authUser();
 $title = "Beranda - Sistem Koperasi Sekolah";
 ?>
 <!DOCTYPE html>
@@ -16,26 +18,29 @@ $title = "Beranda - Sistem Koperasi Sekolah";
 
   <section class="hero">
     <h1>Kelola Sistem Koperasi Sekolah Lebih Rapi</h1>
-    <p>SKS membantu mencatat produk dan koleksi Koperasi sekolah secara sederhana.</p>
+    <p>SKS membantu mencatat produk, supplier, dan pegawai koperasi sekolah secara sederhana.</p>
     <div class="hero-cta">
-      <a href="pages/auth/login.php" class="btn btn-primary">Masuk ke Akun</a>
-      <a href="pages/products/index.php" class="btn btn-outline">Lihat Prodcucts</a>
-      <a href="pages/products/index.php" class="btn btn-outline">Lihat Suppliers</a>
+      <?php if ($user): ?>
+        <a href="/pages/products/index.php" class="btn btn-primary">Masuk Dashboard</a>
+      <?php else: ?>
+        <a href="/pages/auth/login.php" class="btn btn-primary">Masuk ke Akun</a>
+        <a href="/pages/auth/register.php" class="btn btn-outline">Daftar</a>
+      <?php endif; ?>
     </div>
   </section>
 
   <section class="features">
     <div class="feature-card">
       <h3>Manajemen Produk</h3>
-      <p>Admin dapat menambah, mengubah, dan menghapus produk.</p>
+      <p>Admin dapat menambah, mengubah, dan menghapus produk koperasi.</p>
     </div>
     <div class="feature-card">
-      <h3>Manajemen Suppliers</h3>
-      <p>Setiap suplier dikelompokkan ke dalam satu tempat.</p>
+      <h3>Manajemen Supplier</h3>
+      <p>Setiap supplier dikelompokkan berdasarkan jenis produk yang dipasok.</p>
     </div>
     <div class="feature-card">
-      <h3>Hak Akses</h3>
-      <p>Admin mengelola data, member hanya dapat melihat.</p>
+      <h3>Manajemen Pegawai</h3>
+      <p>Data pegawai, jabatan, dan gaji tersimpan rapi dalam satu tempat.</p>
     </div>
   </section>
 

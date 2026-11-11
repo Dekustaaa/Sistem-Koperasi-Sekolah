@@ -1,41 +1,73 @@
 <?php
-require_once
-  __DIR__ . "/../repositories/user-repository.php";
-
-// Pola: getXxxRequest() membersihkan input, validateXxx() mengembalikan array $errors.
+require_once __DIR__ . "/../repositories/user-repository.php";
 
 function getRegisterRequest($request)
 {
-  // TODO: kembalikan array name, email, password, password_confirmation
-  //       name & email: trim(htmlspecialchars(...)); password TIDAK di-htmlspecialchars
-  return [];
+  return [
+    'name'                  => trim(htmlspecialchars($request['name'] ?? '')),
+    'email'                 => trim(htmlspecialchars($request['email'] ?? '')),
+
+    'password'              => $request['password'] ?? '',
+    'password_confirmation' => $request['password_confirmation'] ?? '',
+  ];
 }
 
 function validateRegister($request)
 {
   $errors = [];
 
-  // TODO name  : wajib, maksimal 100 karakter
-  // TODO email : wajib, format valid (filter_var + FILTER_VALIDATE_EMAIL), belum terdaftar
-  // TODO password : wajib, minimal 8 karakter
-  // TODO password_confirmation : harus sama dengan password
-  // Format: $errors['nama_field'] = "Pesan error";
+  if ($request['name'] === '') {
+    $errors['name'] = 'Nama lengkap wajib diisi.';
+  } elseif (mb_strlen($request['name']) > 100) {
+    $errors['name'] = 'Nama lengkap maksimal 100 karakter.';
+  }
+
+  if ($request['email'] === '') {
+    $errors['email'] = 'Email wajib diisi.';
+  } elseif (!filter_var($request['email'], FILTER_VALIDATE_EMAIL)) {
+    $errors['email'] = 'Format email tidak valid.';
+  } elseif (mb_strlen($request['email']) > 100) {
+    $errors['email'] = 'Email maksimal 100 karakter.';
+  } elseif (isEmailTaken($request['email'])) {
+    $errors['email'] = 'Email sudah terdaftar. Silakan gunakan email lain.';
+  }
+
+  if ($request['password'] === '') {
+    $errors['password'] = 'Kata sandi wajib diisi.';
+  } elseif (strlen($request['password']) < 8) {
+    $errors['password'] = 'Kata sandi minimal 8 karakter.';
+  }
+
+  if ($request['password_confirmation'] === '') {
+    $errors['password_confirmation'] = 'Ulangi kata sandi wajib diisi.';
+  } elseif ($request['password_confirmation'] !== $request['password']) {
+    $errors['password_confirmation'] = 'Konfirmasi kata sandi tidak sama.';
+  }
 
   return $errors;
 }
 
 function getLoginRequest($request)
 {
-  // TODO: kembalikan array email dan password
-  return [];
+  return [
+    'email'    => trim(htmlspecialchars($request['email'] ?? '')),
+    'password' => $request['password'] ?? '',
+  ];
 }
 
 function validateLogin($request)
 {
   $errors = [];
 
-  // TODO email    : wajib diisi
-  // TODO password : wajib diisi
+  if ($request['email'] === '') {
+    $errors['email'] = 'Email wajib diisi.';
+  } elseif (!filter_var($request['email'], FILTER_VALIDATE_EMAIL)) {
+    $errors['email'] = 'Format email tidak valid.';
+  }
+
+  if ($request['password'] === '') {
+    $errors['password'] = 'Kata sandi wajib diisi.';
+  }
 
   return $errors;
 }

@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . "/../../middleware/auth.php";
-requireAuth();
+require_once __DIR__ . "/../../config/auth.php";
+requireLogin();
 http_response_code(403);
 ?>
 <!DOCTYPE html>
@@ -18,7 +18,7 @@ http_response_code(403);
     <h1 class="big-code">403</h1>
     <p>Anda tidak memiliki izin untuk mengakses halaman ini.</p>
     <br>
-    <a href="../categories/index.php" class="btn btn-primary">Kembali ke Beranda</a>
+    <a href="../products/index.php" class="btn btn-primary">Kembali ke Beranda</a>
   </div>
 </body>
 

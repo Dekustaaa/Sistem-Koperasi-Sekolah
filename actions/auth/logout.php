@@ -1,7 +1,9 @@
 <?php
-// ACTION LOGOUT
-//
-// session_start();
-// kosongkan $_SESSION ($_SESSION = []);
-// session_destroy();
-// header('Location: ../../pages/auth/login.php'); exit;
+
+require_once __DIR__ . "/../../config/auth.php";
+
+$_SESSION = [];
+session_destroy();
+
+header('Location: /pages/auth/login.php');
+exit;

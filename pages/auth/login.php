@@ -1,11 +1,11 @@
 <?php
-// === TAHAP 2 - AUTENTIKASI ===
-// TODO 1 : session_start();   (TAHAP 3: ganti dengan require middleware + requireGuest())
-// TODO 2 : ambil $_SESSION['success'], ['errors'], ['old'] lalu unset() (flash: tampil sekali)
+require_once __DIR__ . "/../../config/auth.php";
+requireGuest();
 
-$success = '';
-$errors = [];
-$old = [];
+$flash   = pullFlash();
+$success = $flash['success'];
+$errors  = $flash['errors'];
+$old     = $flash['old'];
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -21,21 +21,28 @@ $old = [];
   <div class="card auth-card">
     <h1>Masuk ke Sistem Koperasi Sekolah</h1>
 
-    <!-- TODO 3: jika $success ada -> <div class="alert alert-success"> -->
+    <?php if ($success): ?>
+      <div class="alert alert-success"><?= htmlspecialchars($success) ?></div>
+    <?php endif; ?>
 
-    <!-- TODO 4: jika $errors['login'] ada -> <div class="alert alert-error"> -->
+    <?php if (!empty($errors['login'])): ?>
+      <div class="alert alert-error"><?= htmlspecialchars($errors['login']) ?></div>
+    <?php endif; ?>
 
     <form method="POST" action="../../actions/auth/login.php">
       <div class="form-group">
         <label for="email">Email</label>
-        <!-- TODO 5: value = $old['email'] -->
-        <input type="email" id="email" name="email" value="">
-        <!-- TODO: tampilkan $errors['email'] di <p class="error-text"> jika ada -->
+        <input type="email" id="email" name="email" value="<?= htmlspecialchars($old['email'] ?? '') ?>" autofocus>
+        <?php if (!empty($errors['email'])): ?>
+          <p class="error-text"><?= htmlspecialchars($errors['email']) ?></p>
+        <?php endif; ?>
       </div>
       <div class="form-group">
         <label for="password">Kata Sandi</label>
         <input type="password" id="password" name="password">
-        <!-- TODO: tampilkan $errors['password'] di <p class="error-text"> jika ada -->
+        <?php if (!empty($errors['password'])): ?>
+          <p class="error-text"><?= htmlspecialchars($errors['password']) ?></p>
+        <?php endif; ?>
       </div>
 
       <button name="login" type="submit" class="btn btn-primary btn-block">Masuk</button>
